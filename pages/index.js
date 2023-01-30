@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import AuthForm from "../auth";
+import AuthForm from "../components/auth_form";
 
 export default function Home() {
 
