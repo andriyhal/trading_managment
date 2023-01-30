@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// npx prisma db push
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(uuid())
+  name          String         @unique
+  platforms     Platform[]
+  profiles      Profile[]
+  email         String         @unique
+  password      String
+
+  @@map("users")
+}
+
+model Platform {
+  id    String @id @default(uuid())
+  name  String @unique
+  users User[]
+
+  @@map("platforms")
+}
+
+model Profile {
+  id               String            @id @default(uuid())
+  platformId       String
+  profileName      String
+  user             User              @relation(fields: [userId], references: [id])
+  userId           String
+  apiKey           String
+  secretKey        String
+  authToken        String?
+  bot              Bot[]
+
+  @@map("profiles")
+}
+
+model Bot {
+  id                               String     @id @default(uuid())
+  profileId                        String
+  profile                          Profile    @relation(fields: [profileId], references: [id])
+  isActive                         Boolean    @default(false)
+  profit                           String
+  pair                             String
+  orders                           Order[]
+  botHistories                     BotHistory[]
+  botStrategySmartMarketId String?
+  botStrategySpotLimitId   String?
+  botStrategySmartLimitId  String?
+  botStrategySmartLimit    BotStrategySmartLimit[]
+  botStrategySpotLimit     BotStrategySpotLimit[]
+  botStrategySmartMarket   BotStrategySmartMarket[]
+
+  @@map("bots")
+}
+
+model BotStrategySmartLimit {
+  id                String  @id @default(uuid())
+  bot               Bot     @relation(references: [id], fields: [botId])
+  buyPrice          String
+  buyQuantity       String
+  trailingPercent   String
+  stopLoss          String
+  takeProfit        String
+  botId String
+
+  @@map("bot_strategy_smart_limit")
+}
+
+model BotStrategySmartMarket {
+  id                String   @id @default(uuid())
+  bot               Bot      @relation(references: [id], fields: [botId])
+  totalInvestments  String
+  trailingPercent   String
+  botId             String
+
+  @@map("bot_strategy_smart_market")
+}
+
+model BotStrategySpotLimit {
+  id                String   @id @default(uuid())
+  bot               Bot      @relation(references: [id], fields: [botId])
+  totalInvestments  String
+  buyPrice          String
+  sellPrice         String
+  botId             String
+
+  @@map("bot_strategy_spot_limit")
+}
+
+model Order {
+  id                  String   @id @default(uuid())
+  platformForeignId   String
+  botId               String
+  bot                 Bot      @relation(fields: [botId], references: [id])
+
+  @@map("orders")
+}
+
+model BotHistory {
+  id                String     @id @default(uuid())
+  action            String
+  bot               Bot        @relation(references: [id], fields: [botId])
+  createdAt         DateTime   @default(now())
+  botId             String
+
+  @@map("bot_histories")
+}
