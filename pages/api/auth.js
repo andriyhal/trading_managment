@@ -1,6 +1,6 @@
 const {prisma} = require("../../prisma/db_client.js");
 
-const getUserByName = async (name = "andrew") => {
+const getUserByName = async (name) => {
     const userInfo = await prisma.user.findFirst({
         where: { name },
     })
@@ -16,5 +16,3 @@ export default async function auth(req, res) {
     }
     res.status(401).json({ auth: false })
 }
-
-getUserByName("andrew").then(info => console.log(info))
