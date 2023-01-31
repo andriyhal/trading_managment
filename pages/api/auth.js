@@ -1,18 +1,27 @@
 const {prisma} = require("../../prisma/db_client.js");
 
 const getUserByName = async (name) => {
-    const userInfo = await prisma.user.findFirst({
+    return await prisma.user.findFirst({
         where: { name },
-    })
-
-    return userInfo;
+    });
 }
 
 export default async function auth(req, res) {
-    const userInfo = await getUserByName(req.body.userName)
+    const userInfo = await getUserByName(req.body.userName);
 
-    if(req.body.userName === userInfo.name && req.body.password === userInfo.password){
-        return res.status(200).json({ auth: true, userInfo })
+    if (userInfo) {
+        const { password, ...rest } = userInfo;
+
+        if (req.body?.password === password) {
+            return res.status(200).json({
+                auth: {
+                    accessToken: '12345',
+                    refreshToken: '67890', // potential UX enhancement
+                },
+                userInfo: rest,
+            })
+        }
     }
-    res.status(401).json({ auth: false })
+
+    res.status(401).send();
 }
