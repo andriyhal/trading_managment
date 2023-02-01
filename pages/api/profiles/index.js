@@ -1,6 +1,6 @@
 const { prisma } = require("../../../prisma/db_client");
 
-const DEFAULT_USER_ID = "72a9d92c-95e3-466b-ba2e-0f3584c334bd";
+const DEFAULT_USER_ID = "110a8a85-3ccd-4c24-a324-8eced1e999eb";
 
 export default async function index(req, res) {
     if(req.method === "POST"){

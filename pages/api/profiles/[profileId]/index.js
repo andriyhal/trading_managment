@@ -1,10 +1,9 @@
 const {Spot} =  require("@binance/connector");
+
 const { prisma } = require("../../../../prisma/db_client");
 import {PLATFORMS} from "../../../../constants";
 
-export default async function index(req, res) {
-    console.log(req.query);
-
+export default async function profile(req, res) {
     const profileInfo = await prisma.profile.findFirst({
         where: { id: req.query?.profileId }
     });

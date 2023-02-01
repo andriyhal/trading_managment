@@ -1,4 +1,4 @@
 export const PLATFORMS = {
-    "3243f2bf-44de-4584-be64-a58ab924ef03": "binance",
-    "d12bc458-f095-469f-8281-2a3b32a49680": "whitebit"
+    "27db0bcd-0ff4-4b54-9564-02b242742454": "binance",
+    "c3714ea3-0651-4b1e-ae01-d479e6cfe4d0": "whitebit"
 }

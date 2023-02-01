@@ -39,7 +39,6 @@ model Profile {
   apiKey           String
   secretKey        String
   authToken        String?
-  bot              Bot[]
 
   @@map("profiles")
 }
@@ -47,8 +46,11 @@ model Profile {
 model Bot {
   id                               String     @id @default(uuid())
   profileId                        String
-  profile                          Profile    @relation(fields: [profileId], references: [id])
   isActive                         Boolean    @default(false)
+  isSellFirst                      Boolean    @default(false)
+  buyPrice                         String
+  sellPrice                        String
+  buyQuantity                      String
   profit                           String
   pair                             String
   orders                           Order[]
@@ -99,6 +101,10 @@ model BotStrategySpotLimit {
 
 model Order {
   id                  String   @id @default(uuid())
+  createdAt           DateTime   @default(now())
+  closedAt            DateTime?
+  isBuy               Boolean
+  sum                 String
   platformForeignId   String
   botId               String
   bot                 Bot      @relation(fields: [botId], references: [id])
