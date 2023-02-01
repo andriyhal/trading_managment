@@ -26,13 +26,17 @@ const ProfileLayout = ({children = null}) => {
     const router = useRouter()
 
     useEffect(() => {
-        axios.get(`/api/bots/${router.query.profileId}`).then(resp => {
-            setBots(resp.data)
-        })
+        if(router.query.profileId){
+            axios.get(`/api/bots/${router.query.profileId}`).then(resp => {
+                console.log(resp.data)
+                setBots(resp.data)
+            })
 
-        axios.get(`/api/profiles/${router.query.profileId}`).then(resp => {
-            setProfileInfo(resp.data)
-        })
+            axios.get(`/api/profiles/${router.query.profileId}`).then(resp => {
+                console.log(resp.data)
+                setProfileInfo(resp.data)
+            })
+        }
     }, [router.query.profileId])
 
     const botsRender = useMemo(() => {
