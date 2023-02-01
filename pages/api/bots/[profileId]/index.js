@@ -1,7 +1,14 @@
 const { prisma } = require("../../../../prisma/db_client");
 
-// http://localhost:3000/api/bots/55e48f5f-25eb-4c77-abfc-8032da81ba80
 export default async function botsByProfile(req, res) {
+    if(req.method === "POST"){
+        const result = await prisma.bot.create({
+            data: req.body,
+        });
+
+        res.status(200).json(result);
+    }
+
     const result = await prisma.bot.findMany({
         where: { profileId: req.query?.profileId }
     });
@@ -11,9 +18,14 @@ export default async function botsByProfile(req, res) {
     // sample for bot creation
     // const bot = await prisma.bot.create({
     //     data: {
-    //         profileId: '55e48f5f-25eb-4c77-abfc-8032da81ba80',
+    //         profileId: 'e3b0d9c0-800c-4a3d-9001-e9a7a7215853',
     //         profit: '123',
-    //         pair: "String",
+    //         pair: "USDTUAH",
+    //         isActive: true,
+    //         isSellFirst: false,
+    //         buyPrice: "39.80",
+    //         sellPrice: "40.00",
+    //         buyQuantity: "11"
     //     },
     // })
 }

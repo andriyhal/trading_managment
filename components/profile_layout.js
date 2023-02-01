@@ -8,7 +8,7 @@ const BotRow = memo(({ botStrategySpotLimitId, isActive, pair, profileId, profit
     const router = useRouter()
 
     const onBotSelect = useCallback(() => {
-        router.push(`/profiles/${id}`)
+        router.push(`/profiles/${router.query.profileId}/${id}`)
     }, [id])
 
     return (
@@ -28,12 +28,10 @@ const ProfileLayout = ({children = null}) => {
     useEffect(() => {
         if(router.query.profileId){
             axios.get(`/api/bots/${router.query.profileId}`).then(resp => {
-                console.log(resp.data)
                 setBots(resp.data)
             })
 
             axios.get(`/api/profiles/${router.query.profileId}`).then(resp => {
-                console.log(resp.data)
                 setProfileInfo(resp.data)
             })
         }
