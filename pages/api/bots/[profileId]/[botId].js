@@ -2,6 +2,7 @@ const { prisma } = require("../../../../prisma/db_client");
 
 export default async function bot(req, res) {
     if(req.method === "PUT"){
+        console.log(req.method, req.query)
         const updatedBotInfo = await prisma.bot.update({
             where: { id: req.query.botId},
             data: req.body,
@@ -10,7 +11,6 @@ export default async function bot(req, res) {
         res.status(200).json(updatedBotInfo);
     }
 
-    console.log(req.method, req.query)
     if(req.method === "GET"){
 
         const botInfo = await prisma.bot.findFirst({

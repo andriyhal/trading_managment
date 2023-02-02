@@ -1,7 +1,7 @@
 import {useCallback, useState} from "react";
 import axios from "axios";
 import {FormControl, Input} from "@mui/material";
-import {styles} from "../styles";
+import {styles} from "../styles/styles";
 
 const AuthForm = () => {
     const [userName, setUserName] = useState('');
@@ -37,7 +37,7 @@ const AuthForm = () => {
                    type='text' value={userName} name='user_name' placeholder='User name'/>
             <Input style={styles.input} onChange={handlePassword} onKeyDown={handleKeyPress}
                    type='password' value={password} name='password' placeholder='Password'/>
-            <button style={styles.button} type='submit' onClick={handleSubmit}>Login</button>
+            <button style={styles.largeButton} type='submit' onClick={handleSubmit}>Login</button>
         </FormControl>
     )
 }

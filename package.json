@@ -12,6 +12,7 @@
     "@binance/connector": "^2.0.0-rc.4",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.2",
     "@next/font": "13.1.1",
     "@prisma/client": "^4.8.1",
