@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import axios from "axios";
+import {Box, Typography} from "@mui/material";
 
 import ProfilesLayout from "../../../../components/profiles_layout";
 import ProfileLayout from "../../../../components/profile_layout";
@@ -11,11 +12,16 @@ const BotInfo = (props) => {
     const [defaultBotInfo, setDefaultBotInfo] = useState(null);
     const router = useRouter()
 
-    const updateBotInfo = useCallback((info) => {
-        axios.put(`/api/bots/${router.query.botId}`, info).then(resp => {
-            console.log("saved", info)
+    const updateBotInfo = useCallback(({info}) => {
+        axios.put(`/api/bots/${router.query.profileId}/${router.query.botId}`, {
+            ...info,
+            isActive: !!info.isActive,
+            isSellFirst: !!info.isSellFirst,
+        }).then((resp) => {
+            console.log(resp.data, info)
+            alert("Bot info updated")
         })
-    }, [])
+    }, [router.query.profileId, router.query.botId])
 
     useEffect(() => {
         if(router.query.botId){
@@ -24,12 +30,26 @@ const BotInfo = (props) => {
                 setDefaultBotInfo(resp.data.botInfo)
             })
         }
-    }, [router.query.botId])
+    }, [router.query.botId, router.query.profileId])
 
     return <ProfilesLayout>
         <ProfileLayout>
-            <BotForm defaultBotInfo={defaultBotInfo} fetcher={updateBotInfo}/>
-            {orders?.length && orders.map(({id}) => id)}
+            <Box sx={{
+                display: "flex",
+            }}>
+            <Box>
+                <Typography variant="h6" gutterBottom>
+                    {"Bot info"}
+                </Typography>
+                <BotForm defaultBotInfo={defaultBotInfo} fetcher={updateBotInfo}/>
+            </Box>
+            <Box>
+                <Typography variant="h6" gutterBottom>
+                    {"Orders"}
+                </Typography>
+                {orders?.length ? orders.map(({id}) => id) : "No orders yet"}
+            </Box>
+            </Box>
         </ProfileLayout>
     </ProfilesLayout>
 }

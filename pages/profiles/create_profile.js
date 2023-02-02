@@ -1,10 +1,11 @@
 import React, {useCallback, useState} from "react";
 import {FormControl, Input, MenuItem, Select} from "@mui/material";
-import ProfilesLayout from "../../components/profiles_layout";
-import {styles} from "../../styles";
-import {PLATFORMS} from "../../constants";
 import axios from "axios";
 import {useRouter} from "next/router";
+
+import ProfilesLayout from "../../components/profiles_layout";
+import {styles} from "../../styles/styles";
+import {PLATFORMS} from "../../constants";
 
 const platformsRows = Object.keys(PLATFORMS).map(platformId => <MenuItem value={platformId}>{PLATFORMS[platformId]}</MenuItem>)
 
@@ -49,10 +50,10 @@ const CreateProfileForm = () => {
                 {platformsRows}
             </Select>
             <Input style={styles.input} onChange={handleProfileInfoChange}
-                   type='select' name='apiKey' placeholder='Api key' id="apiKey"/>
+                   type='text' name='apiKey' placeholder='Api key' id="apiKey"/>
             <Input style={styles.input} onChange={handleProfileInfoChange}
-                   type='select'  name='secretKey' placeholder='Secret key' id="secretKey"/>
-            <button style={styles.button} type='submit' onClick={onCreateProfile}>Create</button>
+                   type='text'  name='secretKey' placeholder='Secret key' id="secretKey"/>
+            <button style={styles.smallButton} type='submit' onClick={onCreateProfile}>Create</button>
         </FormControl>
     )
 }

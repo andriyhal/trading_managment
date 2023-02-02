@@ -2,6 +2,7 @@ const { prisma } = require("../../../../prisma/db_client");
 
 export default async function botsByProfile(req, res) {
     if(req.method === "POST"){
+        console.log(req.body)
         const result = await prisma.bot.create({
             data: req.body,
         });

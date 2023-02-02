@@ -51,7 +51,7 @@ model Bot {
   buyPrice                         String
   sellPrice                        String
   buyQuantity                      String
-  profit                           String
+  profit                           String?
   pair                             String
   orders                           Order[]
   botHistories                     BotHistory[]
@@ -107,6 +107,7 @@ model Order {
   sum                 String
   platformForeignId   String
   botId               String
+  fee                 String
   bot                 Bot      @relation(fields: [botId], references: [id])
 
   @@map("orders")
