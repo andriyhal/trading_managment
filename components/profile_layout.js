@@ -75,10 +75,9 @@ const ProfileLayout = ({children = null}) => {
                 <Typography gutterBottom>
                     {`Platform: ${PLATFORMS[profileInfo.platformId]}`}
                 </Typography>
-                {/*TODO: Will open after fix in production*/}
-                {/*<Typography gutterBottom>*/}
-                {/*    {`Balance: ${profileBalance}`}*/}
-                {/*</Typography>*/}
+                <Typography gutterBottom>
+                    {`Balance: ${profileBalance}`}
+                </Typography>
                 <Typography gutterBottom>
                     {`Profile api key: *****${profileInfo.apiKey}`}
                 </Typography>
