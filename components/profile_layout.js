@@ -75,9 +75,9 @@ const ProfileLayout = ({children = null}) => {
                 <Typography gutterBottom>
                     {`Platform: ${PLATFORMS[profileInfo.platformId]}`}
                 </Typography>
-                <Typography gutterBottom>
+                {profileBalance && <Typography gutterBottom>
                     {`Balance: ${profileBalance}`}
-                </Typography>
+                </Typography>}
                 <Typography gutterBottom>
                     {`Profile api key: *****${profileInfo.apiKey}`}
                 </Typography>
