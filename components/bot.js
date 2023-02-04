@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {Checkbox, FormControl, FormGroup, Input} from "@mui/material";
+import {Checkbox, FormGroup, Input} from "@mui/material";
 import {styles} from "../styles/styles";
 
 const BotForm = ({fetcher, defaultBotInfo = null}) => {
@@ -27,7 +27,6 @@ const BotForm = ({fetcher, defaultBotInfo = null}) => {
 
     return (
         <FormGroup method='post'>
-            {console.log({botInfo})}
             <Checkbox onChange={onBotInfoChange} defaultChecked={botInfo.isSellFirst} name='isSellFirst' placeholder='Sell first' id='isSellFirst'/>
             <Checkbox onChange={onBotInfoChange}
                       defaultChecked={botInfo.isActive} name='isActive' placeholder='Active'/>

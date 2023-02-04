@@ -1,7 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-// npx prisma db push
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,113 +8,119 @@ datasource db {
 }
 
 model User {
-  id            String         @id @default(uuid())
-  name          String         @unique
-  platforms     Platform[]
-  profiles      Profile[]
-  email         String         @unique
-  password      String
+  id        String     @id @default(uuid())
+  username  String     @unique(map: "users_name_key")
+  email     String     @unique
+  password  String
+  profiles  Profile[]
+  platforms Platform[] @relation("PlatformToUser")
 
+  @@unique([id, username], map: "id")
   @@map("users")
 }
 
 model Platform {
   id    String @id @default(uuid())
   name  String @unique
-  users User[]
+  users User[] @relation("PlatformToUser")
 
   @@map("platforms")
 }
 
 model Profile {
-  id               String            @id @default(uuid())
-  platformId       String
-  profileName      String
-  user             User              @relation(fields: [userId], references: [id])
-  userId           String
-  apiKey           String
-  secretKey        String
-  authToken        String?
+  id          String  @id @default(uuid())
+  platformId  String
+  profileName String
+  userId      String
+  apiKey      String
+  secretKey   String
+  authToken   String?
+  user        User    @relation(fields: [userId], references: [id])
 
+  @@index([userId], map: "profiles_userId_fkey")
   @@map("profiles")
 }
 
 model Bot {
-  id                               String     @id @default(uuid())
-  profileId                        String
-  isActive                         Boolean    @default(false)
-  isSellFirst                      Boolean    @default(false)
-  buyPrice                         String
-  sellPrice                        String
-  buyQuantity                      String
-  profit                           String?
-  pair                             String
-  orders                           Order[]
-  botHistories                     BotHistory[]
+  id                       String                   @id @default(uuid())
+  profileId                String
+  isActive                 Boolean                  @default(false)
+  isSellFirst              Boolean                  @default(false)
+  buyPrice                 String
+  sellPrice                String
+  buyQuantity              String
+  profit                   String?
+  pair                     String
   botStrategySmartMarketId String?
   botStrategySpotLimitId   String?
   botStrategySmartLimitId  String?
+  botHistories             BotHistory[]
   botStrategySmartLimit    BotStrategySmartLimit[]
-  botStrategySpotLimit     BotStrategySpotLimit[]
   botStrategySmartMarket   BotStrategySmartMarket[]
+  botStrategySpotLimit     BotStrategySpotLimit[]
 
   @@map("bots")
 }
 
 model BotStrategySmartLimit {
-  id                String  @id @default(uuid())
-  bot               Bot     @relation(references: [id], fields: [botId])
-  buyPrice          String
-  buyQuantity       String
-  trailingPercent   String
-  stopLoss          String
-  takeProfit        String
-  botId String
+  id              String @id @default(uuid())
+  buyPrice        String
+  buyQuantity     String
+  trailingPercent String
+  stopLoss        String
+  takeProfit      String
+  botId           String
+  bot             Bot    @relation(fields: [botId], references: [id])
 
+  @@index([botId], map: "bot_strategy_smart_limit_botId_fkey")
   @@map("bot_strategy_smart_limit")
 }
 
 model BotStrategySmartMarket {
-  id                String   @id @default(uuid())
-  bot               Bot      @relation(references: [id], fields: [botId])
-  totalInvestments  String
-  trailingPercent   String
-  botId             String
+  id               String @id @default(uuid())
+  totalInvestments String
+  trailingPercent  String
+  botId            String
+  bot              Bot    @relation(fields: [botId], references: [id])
 
+  @@index([botId], map: "bot_strategy_smart_market_botId_fkey")
   @@map("bot_strategy_smart_market")
 }
 
 model BotStrategySpotLimit {
-  id                String   @id @default(uuid())
-  bot               Bot      @relation(references: [id], fields: [botId])
-  totalInvestments  String
-  buyPrice          String
-  sellPrice         String
-  botId             String
+  id               String @id @default(uuid())
+  totalInvestments String
+  buyPrice         String
+  sellPrice        String
+  botId            String
+  bot              Bot    @relation(fields: [botId], references: [id])
 
+  @@index([botId], map: "bot_strategy_spot_limit_botId_fkey")
   @@map("bot_strategy_spot_limit")
 }
 
 model Order {
-  id                  String   @id @default(uuid())
-  createdAt           DateTime   @default(now())
-  closedAt            DateTime?
-  isBuy               Boolean
-  sum                 String
-  platformForeignId   String
-  botId               String
-  fee                 String
-  bot                 Bot      @relation(fields: [botId], references: [id])
+  id                String    @id @default(uuid())
+  createdAt         DateTime  @default(now())
+  isBuy             Boolean
+  sum               String
+  platformForeignId String
+  botId             String
+  closedAt          DateTime?
+  fee               String?
+  feeAsset          String?
 
+  @@index([botId], map: "orders_botId_fkey")
   @@map("orders")
 }
 
 model BotHistory {
-  id                String     @id @default(uuid())
-  action            String
-  bot               Bot        @relation(references: [id], fields: [botId])
-  createdAt         DateTime   @default(now())
-  botId             String
+  id        String   @id @default(uuid())
+  action    String
+  createdAt DateTime @default(now())
+  botId     String
+  bot       Bot      @relation(fields: [botId], references: [id])
 
+  @@index([botId], map: "bot_histories_botId_fkey")
   @@map("bot_histories")
 }
