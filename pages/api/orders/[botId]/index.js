@@ -1,7 +1,7 @@
 import { prisma } from "../../../../prisma/db_client";
 
 export default async function ordersByBot(req, res) {
-    const result = await prisma.order.findMany({
+    const result = await prisma.orders.findMany({
         where: { botId: req.query?.botId }
     });
 

@@ -99,6 +99,22 @@ model BotStrategySpotLimit {
   @@map("bot_strategy_spot_limit")
 }
 
+model Order {
+  id                String    @id @default(uuid())
+  createdAt         DateTime  @default(now())
+  isBuy             Boolean
+  isCancel          Boolean?  @default(false)
+  sum               String
+  platformForeignId String
+  botId             String
+  closedAt          DateTime?
+  fee               String?
+  feeAsset          String?
+  price             String
+
+  @@map("orders")
+}
+
 model BotHistory {
   id        String   @id @default(uuid())
   action    String
@@ -108,19 +124,4 @@ model BotHistory {
 
   @@index([botId], map: "bot_histories_botId_fkey")
   @@map("bot_histories")
-}
-
-model orders {
-  id                String    @id
-  createdAt         DateTime  @default(now())
-  isBuy             Boolean
-  sum               String
-  platformForeignId String
-  botId             String
-  closedAt          DateTime?
-  fee               String?
-  feeAsset          String?
-  price             String
-
-  @@index([botId], map: "orders_botId_fkey")
 }

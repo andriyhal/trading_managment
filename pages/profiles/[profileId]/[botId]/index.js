@@ -121,7 +121,7 @@ const BotInfo = (props) => {
                                         </Typography>
                                         <Typography style={styles.orderInfoItem}
                                                     className={itemsOrders.itemsOrderInfo}>
-                                            Order id: {id}
+                                            Price: {price}
                                         </Typography>
                                         <Typography style={styles.orderInfoItem}
                                                     className={itemsOrders.lastItemOrderInfo}>
