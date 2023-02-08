@@ -110,7 +110,7 @@ model Order {
   closedAt          DateTime?
   fee               String?
   feeAsset          String?
-  price             String
+  price             String?
 
   @@map("orders")
 }
