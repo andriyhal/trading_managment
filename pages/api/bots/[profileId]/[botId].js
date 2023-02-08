@@ -1,5 +1,7 @@
 const { prisma } = require("../../../../prisma/db_client");
 
+const EMPTY_ORDERS = [];
+
 export default async function bot(req, res) {
     if(req.method === "PUT"){
         console.log(req.method, req.query)
@@ -17,9 +19,9 @@ export default async function bot(req, res) {
             where: { id: req.query.botId},
         })
 
-        const botOrders = await prisma.order.findMany()
-
-        console.log({botInfo, botOrders})
+        const botOrders = await prisma.order.findMany({
+            where: { botId: req.query.botId},
+        })
 
         res.status(200).json({botInfo, orders: botOrders});
     }

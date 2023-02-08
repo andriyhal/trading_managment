@@ -103,6 +103,7 @@ model Order {
   id                String    @id @default(uuid())
   createdAt         DateTime  @default(now())
   isBuy             Boolean
+  isCancel          Boolean?  @default(false)
   sum               String
   platformForeignId String
   botId             String
@@ -111,7 +112,6 @@ model Order {
   feeAsset          String?
   price             String?
 
-  @@index([botId], map: "orders_botId_fkey")
   @@map("orders")
 }
 
