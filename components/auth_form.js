@@ -37,7 +37,7 @@ const AuthForm = () => {
                    type='text' value={userName} name='user_name' placeholder='User name'/>
             <Input style={styles.input} onChange={handlePassword} onKeyDown={handleKeyPress}
                    type='password' value={password} name='password' placeholder='Password'/>
-            <button style={styles.largeButton} type='submit' onClick={handleSubmit}>Login</button>
+            <button style={styles.buttonLogin} type='submit' onClick={handleSubmit}>Login</button>
         </FormControl>
     )
 }

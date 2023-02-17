@@ -101,9 +101,8 @@ model BotStrategySpotLimit {
 
 model Order {
   id                String    @id @default(uuid())
-  createdAt         DateTime  @default(now())
+  createdAt         DateTime  @default(now()) @db.DateTime(0)
   isBuy             Boolean
-  isCancel          Boolean?  @default(false)
   sum               String
   platformForeignId String
   botId             String
@@ -111,6 +110,7 @@ model Order {
   fee               String?
   feeAsset          String?
   price             String?
+  isCancel          Boolean?  @default(false)
 
   @@map("orders")
 }

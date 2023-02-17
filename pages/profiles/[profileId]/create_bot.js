@@ -2,6 +2,7 @@ import React, {useCallback} from "react";
 import {useRouter} from "next/router";
 import axios from "axios";
 import {Box, Typography} from "@mui/material";
+import {styles} from "/styles/styles";
 
 import ProfilesLayout from "../../../components/profiles_layout";
 import ProfileLayout from "../../../components/profile_layout";
@@ -24,13 +25,13 @@ const CreateBotForm = () => {
 
     return <ProfilesLayout>
         <ProfileLayout>
-            <Box>
-                <Typography variant="h6" gutterBottom>
+            <Box style={styles.wrapperCreateBotForm}>
+                <Typography style={styles.titleCreateBotForm}>
                     {"Create bot form"}
                 </Typography>
                 <BotForm fetcher={createBot}/>
             </Box>
-            </ProfileLayout>
+        </ProfileLayout>
     </ProfilesLayout>
 }
 

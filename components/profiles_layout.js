@@ -3,49 +3,7 @@ import axios from "axios";
 import {Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography} from "@mui/material";
 import {useRouter} from 'next/router'
 import Check from "@mui/icons-material/Check";
-
-const styles = {
-    wrapperProfiles: {
-        display: "flex",
-        marginLeft: 10
-    },
-    buttonProfiles: {
-        minWidth: 24,
-        fontWeight: 700,
-        marginLeft: 10,
-        fontSize: 18,
-        color: '#fff',
-        backgroundColor: '#000',
-        border: '2px solid #000',
-        borderRadius: 5,
-        cursor: "pointer"
-    },
-    blockProfiles: {
-        minWidth: 230,
-        minHeight: 500,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'left',
-        alignItems: 'center',
-        border: '2px solid #000',
-        borderRadius: 5,
-        marginTop: 10,
-        marginLeft: 5
-    },
-    titleProfiles: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        height: 50,
-        fontSize: 24,
-        fontWeight: 700,
-        borderBottom: '2px solid #000'
-    },
-    profileRow: {
-        height: 20
-    }
-}
+import {styles} from "../styles/styles";
 
 const ProfileRow = memo(({id, name}) => {
     const router = useRouter()
@@ -57,10 +15,10 @@ const ProfileRow = memo(({id, name}) => {
     return (
         <ListItem component="div" disablePadding>
             <ListItemButton onClick={onSelectProfile}>
-                {id === router.query.profileId ? <ListItemIcon>
+                {id === router.query.profileId ? <ListItemIcon style={styles.textStyleProfiles}>
                     <Check/>
                 </ListItemIcon> : null}
-                <ListItemText primary={name}/>
+                <ListItemText style={styles.textStyleProfiles} primary={name}/>
             </ListItemButton>
         </ListItem>
     )
@@ -94,7 +52,7 @@ const ProfilesLayout = ({children = null}) => {
                     <button style={styles.buttonProfiles} onClick={onCreateProfileLinkClick}>+</button>
                 </Typography>
                 {profiles.length ? <List> {profilesRender} </List> : null}
-                {!profiles.length ? <> {"Have not profiles yet"} </> : null}
+                {!profiles.length ? <Box style={styles.preText}> {"Have not profiles yet"} </Box> : null}
             </Box>
             {children && children}
         </Box>

@@ -14,10 +14,10 @@ const CreateProfileForm = () => {
         platformId: Object.keys(PLATFORMS)[0]
     });
 
-    const router = useRouter()
+    const router = useRouter();
 
     const onCreateProfile = useCallback(async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         const profileInfo = await axios({
             method: 'post',
@@ -33,6 +33,7 @@ const CreateProfileForm = () => {
             ...data,
             [e.target.name]: e.target.value
         }))
+
     }, [setProfileFormInfo, profileFormInfo])
 
     return (
@@ -53,7 +54,7 @@ const CreateProfileForm = () => {
                    type='text' name='apiKey' placeholder='Api key' id="apiKey"/>
             <Input style={styles.input} onChange={handleProfileInfoChange}
                    type='text'  name='secretKey' placeholder='Secret key' id="secretKey"/>
-            <button style={styles.smallButton} type='submit' onClick={onCreateProfile}>Create</button>
+            <button style={styles.buttonLogin} type='submit' onClick={onCreateProfile}>Create profile</button>
         </FormControl>
     )
 }

@@ -4,83 +4,7 @@ import {Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typogra
 import {useRouter} from 'next/router'
 import Check from '@mui/icons-material/Check';
 import {PLATFORMS} from "../constants";
-
-const styles = {
-    wrapperProfile: {
-        width: 1000,
-        height: 145,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        margin: '0 auto',
-        paddingLeft: 20
-    },
-    firstRowProfile: {
-        fontSize: 26,
-        fontWeight: 700
-    },
-    secondRowProfile: {
-        width: 800,
-        height: 40,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontWeight: 700,
-        fontSize: 18,
-        marginBottom: 8,
-        borderRadius: 5,
-        backgroundColor: '#1c1c1c',
-        color: '#fff'
-    },
-    thirdRowProfile: {
-        width: '100%',
-        height: 40,
-        display: 'flex',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        border: '2px solid #1c1c1c',
-
-    },
-    itemProfile: {
-        fontWeight: 700,
-        fontSize: 18
-    },
-    wrapperBots: {
-        display: 'flex'
-    },
-    blockBots: {
-        minWidth: 200,
-        minHeight: 400,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        border: '2px solid #000',
-        borderRadius: 5,
-        marginLeft: 20
-    },
-    titleBots: {
-        width: '100%',
-        height: 50,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontWeight: 700,
-        fontSize: 22,
-        borderBottom: '2px solid #000'
-    },
-    buttonTradingBots: {
-        minWidth: 24,
-        fontWeight: 700,
-        marginLeft: 10,
-        fontSize: 18,
-        color: '#fff',
-        backgroundColor: '#000',
-        border: '2px solid #000',
-        borderRadius: 5,
-        cursor: "pointer"
-    }
-}
+import {styles} from "../styles/styles";
 
 const BotRow = memo(({botStrategySpotLimitId, isActive, pair, profileId, profit, id}) => {
     const router = useRouter()
@@ -92,10 +16,10 @@ const BotRow = memo(({botStrategySpotLimitId, isActive, pair, profileId, profit,
     return (
         <ListItem key={id} component="div" disablePadding>
             <ListItemButton onClick={onBotSelect}>
-                {id === router.query.botId ? <ListItemIcon>
+                {id === router.query.botId ? <ListItemIcon style={styles.textStyleProfiles}>
                     <Check/>
                 </ListItemIcon> : null}
-                <ListItemText primary={pair}/>
+                <ListItemText style={styles.textStyleProfiles} primary={pair}/>
             </ListItemButton>
         </ListItem>
     )
@@ -164,7 +88,7 @@ const ProfileLayout = ({children = null}) => {
                         <button style={styles.buttonTradingBots} onClick={onCreateBotLinkClick}>+</button>
                     </Typography>
                     {bots.length ? <List> {botsRender} </List> : null}
-                    {!bots.length ? <>{"Have not bots yet"}</> : null}
+                    {!bots.length ? <Box style={styles.preText}>{"Have not bots yet"}</Box> : null}
                 </Box>
                 <Box>
                     {children && children}
