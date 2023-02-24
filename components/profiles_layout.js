@@ -52,7 +52,7 @@ const ProfilesLayout = ({children = null}) => {
                     <button style={styles.buttonProfiles} onClick={onCreateProfileLinkClick}>+</button>
                 </Typography>
                 {profiles.length ? <List> {profilesRender} </List> : null}
-                {!profiles.length ? <Box style={styles.preText}> {"Have not profiles yet"} </Box> : null}
+                {!profiles.length ? <Box style={styles.preText}> "Have not profiles yet" </Box> : null}
             </Box>
             {children && children}
         </Box>

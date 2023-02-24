@@ -88,7 +88,7 @@ const ProfileLayout = ({children = null}) => {
                         <button style={styles.buttonTradingBots} onClick={onCreateBotLinkClick}>+</button>
                     </Typography>
                     {bots.length ? <List> {botsRender} </List> : null}
-                    {!bots.length ? <Box style={styles.preText}>{"Have not bots yet"}</Box> : null}
+                    {!bots.length ? <Box style={styles.preText}>"Have not bots yet"</Box> : null}
                 </Box>
                 <Box>
                     {children && children}

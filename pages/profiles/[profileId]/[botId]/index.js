@@ -84,7 +84,7 @@ const BotInfo = () => {
                                         Closed time: {(closedAt ? <Time dateString={closedAt} /> : '')}
                                     </Typography>
                                 </Box>
-                            </Box>) : "No orders yet"}
+                            </Box>) : <Typography style={styles.preText}>"No orders yet"</Typography>}
                     </Box>
                 </Box>
             </Box>

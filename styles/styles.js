@@ -12,8 +12,8 @@ export const styles = {
         marginTop: 150
     },
     input: {
-        width: 450,
-        height: 41,
+        width: 640,
+        height: 45,
         color: '#fff',
         backgroundColor: '#161a1e',
         border: '1px solid #161a1e',
@@ -100,6 +100,7 @@ export const styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        padding: '10px 20px',
         fontWeight: 700,
         fontSize: 20,
         borderRadius: 5,
